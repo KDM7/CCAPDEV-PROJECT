@@ -1,0 +1,31 @@
+[{
+    "mealID": "C1",
+    "mealName": "Cheeseburger",
+    "mealDesc": "Hamburger with vegetables and a slice of cheese in between buns with melted cheese on top of the burger, comes with standard drink and fries",
+    "mealPrice": 60.00,
+    "restID": 20001  
+  }, {
+    "mealID": "C2",
+    "mealName": "Chicken",
+    "mealDesc": "1 pc chicken and rice with cheese melted on top, comes with standard drink and fries",
+    "mealPrice": 100.00,
+    "restID": 20001
+  }, {
+    "mealID": "C3",
+    "mealName": "Hotdogs",
+    "mealDesc": "2 pc Jumbo Hotdogs and rice with cheese melted on top, comes with standard drink and fries",
+    "mealPrice": 100.00,
+    "restID": 20001
+  }, {
+    "mealID": "C4",
+    "mealName": "Soup",
+    "mealDesc": "Bowl of soup with cheese powder mixed in, comes with standard drink and fries",
+    "mealPrice": 80.00,
+    "restID": 20001
+  }, {
+    "mealID": "C5",
+    "mealName": "Sides",
+    "mealDesc": "Extra Large serving of fries and nachos overloaded with cheese, comes with standard drink",    
+    "mealPrice": 60.00,
+    "restID": 20001
+  }]

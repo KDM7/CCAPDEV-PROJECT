@@ -1,0 +1,31 @@
+[{
+    "restID": 20001,
+    "restName": "Cheeze IT",
+    "restAdress": "Gulang Gulang, Lucena City",
+    "wrkHrs": "8:00 AM - 8:00 PM"  
+  }, {
+    "restID": 20002,
+    "restName": "Taco Town",
+    "restAdress": "Lucena City Proper",
+    "wrkHrs": "8:00 AM - 10:00 PM"  
+  }, {
+    "restID": 20003,
+    "restName": "Spicy City",
+    "restAdress": "Gulang Gulang, Lucena City",
+    "wrkHrs": "24 Hrs"  
+  }, {
+    "restID": 20004,
+    "restName": "Potato Academy",
+    "restAdress": "Gulang Gulang, Lucena City",
+    "wrkHrs": "6:00 AM - 7:00 PM"  
+  }, {
+    "restID": 20005,
+    "restName": "Ben's Grill",
+    "restAdress": "Gulang Gulang, Lucena City",
+    "wrkHrs": "10:00 AM - 12:00 PM"  
+  }, {
+    "restID": 20006,
+    "restName": "Call of Breakfast",
+    "restAdress": "Gulang Gulang, Lucena City",
+    "wrkHrs": "5:00 AM - 12:00 PM"  
+  }]
