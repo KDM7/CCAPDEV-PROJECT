@@ -1,0 +1,21 @@
+{
+  "name": "ccapdev-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KDM7/CCAPDEV-PROJECT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KDM7/CCAPDEV-PROJECT/issues"
+  },
+  "homepage": "https://github.com/KDM7/CCAPDEV-PROJECT#readme"
+}
