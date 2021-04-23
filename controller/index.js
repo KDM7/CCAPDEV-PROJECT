@@ -35,3 +35,13 @@ function Employee(userID, restID) {
     this.userID = userID;
     this.restID = restID;
 }
+
+const indexFunctions = {
+
+    getChzMenu: async function (req, res) {
+        res.render('r_ChzIT', {
+            title: 'Cheeze IT Menu'
+        });
+    }
+}
+module.exports = indexFunctions;
