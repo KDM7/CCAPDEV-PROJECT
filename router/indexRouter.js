@@ -5,3 +5,5 @@ const indexMiddleware = require('../middlewares/indexMiddleware');
 
 // GETS
 router.get('/', controller.getLogin);
+
+router.get('/ChzIT', controller.getChzMenu);
