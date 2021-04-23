@@ -3,7 +3,8 @@ const handlebars = require('handlebars');
 
 const userModel = require('../model/usersdb');
 const restaurantModel = require('../model/restaurantsdb');
-const mealModel = require('../model/')
+const mealModel = require('../model/mealsdb');
+const employeeModel = require('../model/employeesdb');
 
 const bcrypt = require('bcrypt');
 const e = require('express');
@@ -30,3 +31,7 @@ function Meal(mealID, mealName, mealDesc, mealPrice, restID) {
     this.restID = restID;
 }
 
+function Employee(userID, restID) {
+    this.userID = userID;
+    this.restID = restID;
+}
