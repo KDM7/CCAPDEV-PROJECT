@@ -4,7 +4,7 @@ const controller = require('../controller/index');
 const indexMiddleware = require('../middlewares/indexMiddleware');
 
 // GETS
-// router.get('/', controller.getLogin);
+router.get('/', controller.getLogin);
 
 router.get('/r/ChzIT', controller.getChzMenu);
 

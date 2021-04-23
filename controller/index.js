@@ -38,6 +38,12 @@ function Employee(userID, restID) {
 
 const indexFunctions = {
 
+    getLogin: async function(req, res) {
+        res.render('login', {
+            title: 'Login'
+        });
+    },
+    
     getChzMenu: async function (req, res) {
         res.render('r_ChzIT', {
             title: 'Cheeze IT Menu'
