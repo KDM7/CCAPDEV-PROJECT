@@ -28,4 +28,42 @@
     "mealDesc": "Extra Large serving of fries and nachos overloaded with cheese, comes with standard drink",    
     "mealPrice": 60.00,
     "restID": 20001
+  }, {
+    "mealID": "T1",
+    "mealName": "Regular Beef Taco",
+    "mealDesc": "Standard Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+    "mealPrice": 65.00,
+    "restID": 20002
+  }, {
+    "mealID": "T2",
+    "mealName": "Regular Pork Taco",
+    "mealDesc": "Standard Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+    "mealPrice": 60.00,
+    "restID": 20002
+  }, {
+    "mealID": "T3",
+    "mealName": "Vegetarian Taco",
+    "mealDesc": "Meat Free Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+    "mealPrice": 55.00,
+    "restID": 20002
+  }, {
+    "mealID": "T4",
+    "mealName": "Meaty Beef Taco",
+    "mealDesc": "Vegetable Free Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+    "mealPrice": 75.00,
+    "restID": 20002
+  }, {
+    "mealID": "T4",
+    "mealName": "Meaty Pork Taco",
+    "mealDesc": "Vegetable Free Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+    "mealPrice": 70.00,
+    "restID": 20002
+  }, {
+    "mealID": "T5",
+    "mealName": "Taco Rice",
+    "mealDesc": "Taco Filling on top of Rice (Type of Meat can be selected, Vegetables can be removed), comes with standard drink",
+    "mealPrice": 60.00,
+    "restID": 20002
+  }, {
+    
   }]
