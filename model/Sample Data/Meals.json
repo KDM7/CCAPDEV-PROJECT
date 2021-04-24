@@ -1,69 +1,181 @@
 [{
-    "mealID": "C1",
-    "mealName": "Cheeseburger",
-    "mealDesc": "Hamburger with vegetables and a slice of cheese in between buns with melted cheese on top of the burger, comes with standard drink and fries",
-    "mealPrice": 60.00,
-    "restID": 20001  
-  }, {
-    "mealID": "C2",
-    "mealName": "Chicken",
-    "mealDesc": "1 pc chicken and rice with cheese melted on top, comes with standard drink and fries",
-    "mealPrice": 100.00,
-    "restID": 20001
-  }, {
-    "mealID": "C3",
-    "mealName": "Hotdogs",
-    "mealDesc": "2 pc Jumbo Hotdogs and rice with cheese melted on top, comes with standard drink and fries",
-    "mealPrice": 100.00,
-    "restID": 20001
-  }, {
-    "mealID": "C4",
-    "mealName": "Soup",
-    "mealDesc": "Bowl of soup with cheese powder mixed in, comes with standard drink and fries",
-    "mealPrice": 80.00,
-    "restID": 20001
-  }, {
-    "mealID": "C5",
-    "mealName": "Sides",
-    "mealDesc": "Extra Large serving of fries and nachos overloaded with cheese, comes with standard drink",    
-    "mealPrice": 60.00,
-    "restID": 20001
-  }, {
-    "mealID": "T1",
-    "mealName": "Regular Beef Taco",
-    "mealDesc": "Standard Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
-    "mealPrice": 65.00,
-    "restID": 20002
-  }, {
-    "mealID": "T2",
-    "mealName": "Regular Pork Taco",
-    "mealDesc": "Standard Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
-    "mealPrice": 60.00,
-    "restID": 20002
-  }, {
-    "mealID": "T3",
-    "mealName": "Vegetarian Taco",
-    "mealDesc": "Meat Free Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
-    "mealPrice": 55.00,
-    "restID": 20002
-  }, {
-    "mealID": "T4",
-    "mealName": "Meaty Beef Taco",
-    "mealDesc": "Vegetable Free Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
-    "mealPrice": 75.00,
-    "restID": 20002
-  }, {
-    "mealID": "T4",
-    "mealName": "Meaty Pork Taco",
-    "mealDesc": "Vegetable Free Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
-    "mealPrice": 70.00,
-    "restID": 20002
-  }, {
-    "mealID": "T5",
-    "mealName": "Taco Rice",
-    "mealDesc": "Taco Filling on top of Rice (Type of Meat can be selected, Vegetables can be removed), comes with standard drink",
-    "mealPrice": 60.00,
-    "restID": 20002
-  }, {
-    
-  }]
+  "mealID": "C1",
+  "mealName": "Cheeseburger",
+  "mealDesc": "Hamburger with vegetables and a slice of cheese in between buns with melted cheese on top of the burger, comes with standard drink and fries",
+  "mealPrice": 60.00,
+  "restID": 20001  
+}, {
+  "mealID": "C2",
+  "mealName": "Cheese Chicken",
+  "mealDesc": "1 pc chicken and rice with cheese melted on top, comes with standard drink and fries",
+  "mealPrice": 100.00,
+  "restID": 20001
+}, {
+  "mealID": "C3",
+  "mealName": "Cheese Hotdogs",
+  "mealDesc": "2 pc Jumbo Hotdogs and rice with cheese melted on top, comes with standard drink and fries",
+  "mealPrice": 100.00,
+  "restID": 20001
+}, {
+  "mealID": "C4",
+  "mealName": "Soup",
+  "mealDesc": "Bowl of soup with cheese powder mixed in, comes with standard drink and fries",
+  "mealPrice": 80.00,
+  "restID": 20001
+}, {
+  "mealID": "C5",
+  "mealName": "Sides",
+  "mealDesc": "Extra Large serving of fries and nachos overloaded with cheese, comes with standard drink",    
+  "mealPrice": 60.00,
+  "restID": 20001
+}, {
+  "mealID": "T1",
+  "mealName": "Regular Beef Taco",
+  "mealDesc": "Standard Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+  "mealPrice": 65.00,
+  "restID": 20002
+}, {
+  "mealID": "T2",
+  "mealName": "Regular Pork Taco",
+  "mealDesc": "Standard Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+  "mealPrice": 60.00,
+  "restID": 20002
+}, {
+  "mealID": "T3",
+  "mealName": "Vegetarian Taco",
+  "mealDesc": "Meat Free Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+  "mealPrice": 55.00,
+  "restID": 20002
+}, {
+  "mealID": "T4",
+  "mealName": "Meaty Beef Taco",
+  "mealDesc": "Vegetable Free Beef Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+  "mealPrice": 75.00,
+  "restID": 20002
+}, {
+  "mealID": "T4",
+  "mealName": "Meaty Pork Taco",
+  "mealDesc": "Vegetable Free Pork Taco (Extra Sauce and Spice Sauce can be included for free), comes with standard drink",
+  "mealPrice": 70.00,
+  "restID": 20002
+}, {
+  "mealID": "T5",
+  "mealName": "Taco Rice",
+  "mealDesc": "Taco Filling on top of Rice (Type of Meat can be selected, Vegetables can be removed), comes with standard drink",
+  "mealPrice": 60.00,
+  "restID": 20002
+}, {
+  "mealID": "S1",
+  "mealName": "Spicy Burger",
+  "mealDesc": "Standard Burger with Chili Sauce, comes with standard drink and fries",
+  "mealPrice": 60.00,
+  "restID": 20003
+}, {
+  "mealID": "S2",
+  "mealName": "Spicy Chicken",
+  "mealDesc": "Standard Chicken cooked with spicy powder and rice with Chili Sauce, comes with standard drink and fries",
+  "mealPrice": 120.00,
+  "restID": 20003
+}, {
+  "mealID": "S3",
+  "mealName": "Spicy Hotdogs",
+  "mealDesc": "Standard 2 pc Chili Hotdog and rice with Chili Sauce, comes with standard drink and fries",
+  "mealPrice": 110.00,
+  "restID": 20003
+}, {
+  "mealID": "S4",
+  "mealName": "Spicy Soup",
+  "mealDesc": "Large Bowl of Spicy Noodles, comes with standard drink and fries",
+  "mealPrice": 100.00,
+  "restID": 20003
+}, {
+  "mealID": "S5",
+  "mealName": "Spicy Sides",
+  "mealDesc": "Large Serving of French Fries and Nachos served with Large amount of Chili Sauce, comes with standard drink",
+  "mealPrice": 90.00,
+  "restID": 20003
+}, {
+  "mealID": "P1",
+  "mealName": "Spicy Fries",
+  "mealDesc": "Standard Serving of Fries with Spicy BBQ Powder, comes with standard drink and sauce of your choice",
+  "mealPrice": 70.00,
+  "restID": 20004
+}, {
+  "mealID": "P2",
+  "mealName": "Cheezy Fries",
+  "mealDesc": "Standard Serving of Fries with Cheeze Powder, comes with standard drink and sauce of your choice",
+  "mealPrice": 60.00,
+  "restID": 20004
+}, {
+  "mealID": "P3",
+  "mealName": "Sour Cream Fries",
+  "mealDesc": "Standard Serving of Fries with Sour Cream Powder, comes with standard drink and sauce of your choice",
+  "mealPrice": 65.00,
+  "restID": 20004
+}, {
+  "mealID": "P4",
+  "mealName": "Spicy MOJOs",
+  "mealDesc": "Standard Serving of MOJOs with Spicy BBQ Powder, comes with standard drink and sauce of your choice",
+  "mealPrice": 65.00,
+  "restID": 20004
+}, {
+  "mealID": "P5",
+  "mealName": "Cheezy MOJOs",
+  "mealDesc": "Standard Serving of MOJOs with Cheeze Powde, comes with standard drink and sauce of your choice",
+  "mealPrice": 65.00,
+  "restID": 20004
+}, {
+  "mealID": "P6",
+  "mealName": "Sour Cream MOJOs",
+  "mealDesc": "Standard Serving of MOJOs with Sour Cream Powder, comes with standard drink and sauce of your choice",
+  "mealPrice": 65.00,
+  "restID": 20004
+}, {
+  "mealID": "B1",
+  "mealName": "BBQ",
+  "mealDesc": "Standard 2 pc BBQ on a stick with rice, comes with standard drink and sauce of your choice",
+  "mealPrice": 90.00,
+  "restID": 20005
+}, {
+  "mealID": "B2",
+  "mealName": "Hotdogs",
+  "mealDesc": "Standard 2 pc Hotdogs with rice, comes with standard drink and sauce of your choice",
+  "mealPrice": 80.00,
+  "restID": 20005
+}, {
+  "mealID": "B3",
+  "mealName": "Chicken BBQ",
+  "mealDesc": "Standard BBQ Chicken with rice, comes with standard drink and sauce of your choice",
+  "mealPrice": 130.00,
+  "restID": 20005
+}, {
+  "mealID": "B4",
+  "mealName": "Porkchop",
+  "mealDesc": "Standard Porkchop with rice, comes with standard drink and sauce of your choice",
+  "mealPrice": 110.00,
+  "restID": 20005
+}, {
+  "mealID": "A1",
+  "mealName": "Pancakes",
+  "mealDesc": "Standard 3 pc Pancakes with butter and syrup on top, comes with drink of your choice",
+  "mealPrice": 60.00,
+  "restID": 20006
+}, {
+  "mealID": "A2",
+  "mealName": "Sandwhiches",
+  "mealDesc": "Standard 2 pc sandwhiches",
+  "mealPrice": 65.00,
+  "restID": 20006
+}, {
+  "mealID": "A3",
+  "mealName": "Bacon and Eggs",
+  "mealDesc": "Standard 2 pc Bacon with a cooked egg with rice, comes with drink of your choice",
+  "mealPrice": 70.00,
+  "restID": 20006
+}, {
+  "mealID": "A4",
+  "mealName": "Cake",
+  "mealDesc": "Standard slice of cake of your choice, comes with drink of your choice",
+  "mealPrice": 80.00,
+  "restID": 20006
+}]

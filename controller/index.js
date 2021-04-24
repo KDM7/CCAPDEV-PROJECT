@@ -45,9 +45,13 @@ const indexFunctions = {
     },
     
     getChzMenu: async function (req, res) {
-        res.render('r_ChzIT', {
-            title: 'Cheeze IT Menu'
-        });
+        try {
+            res.render('r_ChzIT', {
+                title: 'Cheeze IT Menu'
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 module.exports = indexFunctions;

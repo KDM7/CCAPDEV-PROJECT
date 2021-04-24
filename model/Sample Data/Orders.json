@@ -1,5 +1,6 @@
 [{
     "orderID": 40001,
     "status": "complete",
-    "total": 60.00
+    "total": 60.00,
+    "finish": true
 }]
