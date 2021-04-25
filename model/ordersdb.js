@@ -11,7 +11,9 @@ var db = mongoose.connection;
 const orderSchema = new mongoose.Schema({
     userID: {type: Number, required: true},
     status: {type: String, required: true},
-    date: {type: Date, required: true},
+    date: {type: Date, required: false},
+    customer: {type: Number, required: true},
+    restID: {type: Number, required: true},
     total: {type: Number, required: true},
     finish: {type: Boolean, required: true}
 }, {collection: "orders"});

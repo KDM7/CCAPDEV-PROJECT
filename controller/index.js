@@ -5,6 +5,7 @@ const userModel = require('../model/usersdb');
 const restaurantModel = require('../model/restaurantsdb');
 const mealModel = require('../model/mealsdb');
 const employeeModel = require('../model/employeesdb');
+const orderModel = require('../model/ordersdb');
 
 const bcrypt = require('bcrypt');
 const e = require('express');
@@ -34,6 +35,16 @@ function Meal(mealID, mealName, mealDesc, mealPrice, restID) {
 function Employee(userID, restID) {
     this.userID = userID;
     this.restID = restID;
+}
+
+function Order(orderID, status, date, customer, restID, total, finish) {
+    this.orderID = orderID;
+    this.status = status;
+    this.date = date;
+    this.customer = customer;
+    this.restID = restID;
+    this.total = total;
+    this.finish = finish;
 }
 
 const indexFunctions = {
@@ -154,7 +165,40 @@ const indexFunctions = {
 
     getChzOrders: async function (req, res) {
         try {
+            var result = await orderModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20001, 
+                    'finish': true
+                  }
+                }, {
+                  '$lookup': {
+                    'from': 'users', 
+                    'localField': 'customer', 
+                    'foreignField': 'userID', 
+                    'as': 'user'
+                  }
+                }, {
+                  '$unwind': {
+                    'path': '$user', 
+                    'preserveNullAndEmptyArrays': true
+                  }
+                }, {
+                  '$project': {
+                    'orderID': 1, 
+                    'status': 1, 
+                    'date': 1, 
+                    'total': 1, 
+                    'c_firtName': '$user.firstName', 
+                    'c_lastName': '$user.lastName'
+                  }
+                }
+              ]);
 
+              res.render('r_ChzIT', {
+                  title: 'Cheeze IT Orders',
+                  orders: JSON.parse(JSON.stringify(result))
+              });
         } catch(e) {
             console.log(e);
         }

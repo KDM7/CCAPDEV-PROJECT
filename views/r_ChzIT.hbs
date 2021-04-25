@@ -9,39 +9,16 @@
                               <tr>
                                 <th scope="col">Status</th>
                                 <th scope="col">OrderID</th>
+                                <th scope="col">Customer</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Price</th>
                                 <th scope="col"></th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td></td>
-                                <td style="width: 90px;">
-                                    <button type="button" class="btn btn-outline-primary">Details</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td></td>
-                                <td style="width: 90px;">
-                                    <button type="button" class="btn btn-outline-primary">Details</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Yes</td>
-                                <td>@twitter</td>
-                                <td></td>
-                                <td style="width: 90px;">
-                                    <button type="button" class="btn btn-outline-primary">Details</button>
-                                </td>
-                              </tr>
+                              {{#each orders}}
+                              {{>order_row this}}
+                              {{/each}}
                             </tbody>
                           </table>
                     </div>
