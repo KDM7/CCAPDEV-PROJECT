@@ -1,6 +1,7 @@
 [{
     "orderID": 40001,
     "status": "complete",
+    "date": "04/20/2020",
     "total": 60.00,
     "finish": true
 }]

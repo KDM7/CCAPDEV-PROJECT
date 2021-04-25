@@ -9,7 +9,7 @@ mongoose.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@pers
 var db = mongoose.connection;
 
 const mealSchema = new mongoose.Schema({
-    mealID: {type : Number, required: true},
+    mealID: {type : String, required: true},
     mealName: {type : String, required: true},
     mealDesc: {type : String, required: true},
     mealPrice: {type : Number, required: true},

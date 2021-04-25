@@ -1,0 +1,28 @@
+{{>c_header}}
+<div class="container">
+            <div class="col-12">
+                <div class="shadow">
+                    <br>
+                    <h1 class="list-group-item list-group-item-action bg-primary text-white">Menu</h1>
+                    <br>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Meal ID</th>
+                                <th scope="col">Meal Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {{#each meals}}
+                          {{>meal_row this}}
+                          {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <a href="checkout.html" class="btn btn-primary btn-lg btn-block mt-3">Checkout</a>
+            
+            
+        </div>

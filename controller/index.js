@@ -46,10 +46,116 @@ const indexFunctions = {
     
     getChzMenu: async function (req, res) {
         try {
-            res.render('r_ChzIT', {
-                title: 'Cheeze IT Menu'
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20001
+                  }
+                }
+              ]);
+            res.render('u_ChzIT', {
+                title: 'Cheeze IT Menu',
+                meals: JSON.parse(JSON.stringify(matches))
             });
         } catch (e) {
+            console.log(e);
+        }
+    },
+
+    getSpcMenu: async function (req, res) {
+        try {
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20003
+                  }
+                }
+              ]);
+            res.render('u_SpCity', {
+                title: 'Spicy City Menu',
+                meals: JSON.parse(JSON.stringify(matches))
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    getTacMenu: async function (req, res) {
+        try {
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20002
+                  }
+                }
+              ]);
+            res.render('u_TacTown', {
+                title: 'Taco Town Menu',
+                meals: JSON.parse(JSON.stringify(matches))
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    getPotMenu: async function (req, res) {
+        try {
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20004
+                  }
+                }
+              ]);
+            res.render('u_PotAc', {
+                title: 'Potato Academy Menu',
+                meals: JSON.parse(JSON.stringify(matches))
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    },
+
+    getBenMenu: async function (req, res) {
+        try {
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20005
+                  }
+                }
+              ]);
+            res.render('u_BenG', {
+                title: 'Bens Grill Menu',
+                meals: JSON.parse(JSON.stringify(matches))
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    },
+
+    getAlmuMenu: async function (req, res) {
+        try {
+            var matches = await mealModel.aggregate([
+                {
+                  '$match': {
+                    'restID': 20006
+                  }
+                }
+              ]);
+            res.render('u_BenG', {
+                title: 'Almusal Central Menu',
+                meals: JSON.parse(JSON.stringify(matches))
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    },
+
+    getChzOrders: async function (req, res) {
+        try {
+
+        } catch(e) {
             console.log(e);
         }
     }
