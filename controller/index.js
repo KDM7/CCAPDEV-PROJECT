@@ -189,7 +189,7 @@ const indexFunctions = {
                     'status': 1, 
                     'date': 1, 
                     'total': 1, 
-                    'c_firtName': '$user.firstName', 
+                    'c_firstName': '$user.firstName', 
                     'c_lastName': '$user.lastName'
                   }
                 }
@@ -202,6 +202,15 @@ const indexFunctions = {
         } catch(e) {
             console.log(e);
         }
+    },
+
+    getChzC1: async function (req, res) {
+      try {
+        res.render('u_mealOrder_C1', {
+          title: 'Cheeze IT Ordering'});
+      } catch(e) {
+        console.log(e);
+      }
     }
 }
 module.exports = indexFunctions;
