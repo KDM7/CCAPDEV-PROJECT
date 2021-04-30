@@ -1,0 +1,55 @@
+{{>c_header}}
+    <div class="container">
+
+            
+                <div class="col-12">
+                    <div class="shadow">
+                        <br>
+                        <h1 class="list-group-item list-group-item-action bg-primary text-white">Check Out</h1>
+                        <br>
+                        <form>
+                            <div class="invisible">
+                                <div class="form-group">
+                                    {{#each order}}
+                                    <input type="number" class="form-control" id="orderTotal" value="{{this.total}}"
+                                            min="0" disabled>
+                                    {{/each}}
+                                    {{#each restaurant}}
+                                    <input type="number" class="form-control" id="orderRestID" value="{{this.restID}}"
+                                            min="0" disabled>
+                                    {{/each}}
+                                </div>                                
+                            </div>
+                        </form>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">Check ID</th>
+                                <th scope="col">Meal Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {{#each meal}}
+                                {{>c_order_row this}}
+                                {{/each}}
+                                <tr class="table-success">
+                                    <th scope="row">Total</th>
+                                    <td></td>
+                                    <td></td>
+                                    {{#each order}}
+                                    <td class="text-right">{{this.total}}.00</td>
+                                    {{/each}}
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                          <button type="button" class="btn btn-primary btn-lg btn-block mt-3" 
+										id="submitNewOrder">Confirm Order</button>
+                    </div>
+                </div>
+
+
+        </div>

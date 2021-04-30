@@ -4,38 +4,19 @@
     "date": "04/20/2020",
     "customer": 10014,
     "restID": 20001,
-    "total": 60.00,
-    "finish": true
+    "total": 60.00
 }, {
     "orderID": 40002,
     "status": "cooking",
     "date": "04/21/2020",
     "customer": 10014,
     "restID": 20001,
-    "total": 120.00,
-    "finish": true
+    "total": 120.00
 }, {
     "orderID": 40003,
     "status": "complete",
     "date": "04/20/2020",
     "customer": 10014,
     "restID": 20002,
-    "total": 60.00,
-    "finish": true
-}, {
-    "orderID": 40004,
-    "status": "complete",
-    "date": null,
-    "customer": 10014,
-    "restID": 20001,
-    "total": 60.00,
-    "finish": false
-}, {
-    "orderID": 40005,
-    "status": "complete",
-    "date": null,
-    "customer": 10014,
-    "restID": 20001,
-    "total": 60.00,
-    "finish": false
+    "total": 60.00
 }]

@@ -2,6 +2,8 @@
     "checkID": 30001,
     "mealID": "C1",
     "orderID": 40001,
+    "userID": 10014,
+    "restID": 20001,
     "qty": 1,
     "total": 60.00  
 }]

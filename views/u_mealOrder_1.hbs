@@ -1,0 +1,49 @@
+{{>c_header}}
+            <div class="col-12">
+                    <div class="shadow">
+						<div class="d-flex flex-column mt-2">
+                            <div class="container">
+								<h1 class="display-4 text-center">{{meal.mealName}}</h1>
+							</div>
+							<div class="container">
+                                <div class="container text-center">
+                                    <img src="img/square.png" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="container">
+                                    <h5 class ="text-center">Description: {{meal.mealDesc}}</h5>
+                                </div>
+                                
+								<form>
+									<div class="form-group">
+										<label for="meal_qty">Quantity</label>
+										<input type="number" class="form-control" id="meal_qty" placeholder="Quantity Sold"
+											 min="0" required>
+									</div>
+									<div class="form-group">
+										<label for="meal_Price">Selling Price</label>
+										<div class="input-group mb-2">
+											<div class="input-group-prepend">
+												<div class="input-group-text">PHP</div>
+											</div>
+											<input type="number" class="form-control" id="meal_Price" value="{{meal.mealPrice}}.00" disabled>
+										</div>
+									</div>
+									<div class="invisible">
+										<div class="form-group">
+											<label for="meal_ID">Meal ID</label>
+											<input type="text" class="form-control" id="meal_ID" value="{{meal.mealID}}" disabled>
+										</div>
+									</div>
+								</form>
+                            <div class="form-group ">
+                                <div class="row">
+									<button type="button" class="btn btn-primary btn-lg btn-block mt-3" 
+										id="submitNewCheckout">Checkout</button>
+                                </div>
+							</div>	
+						</div>
+                    </div>
+                </div>
+
+
+            </div>

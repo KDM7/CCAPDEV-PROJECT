@@ -9,13 +9,12 @@ mongoose.connect(`mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@pers
 var db = mongoose.connection;
 
 const orderSchema = new mongoose.Schema({
-    userID: {type: Number, required: true},
+    orderID: {type: Number, required: true},
     status: {type: String, required: true},
-    date: {type: Date, required: false},
+    date: {type: Date, required: true},
     customer: {type: Number, required: true},
     restID: {type: Number, required: true},
-    total: {type: Number, required: true},
-    finish: {type: Boolean, required: true}
+    total: {type: Number, required: true}
 }, {collection: "orders"});
 
 orderSchema.methods.recordNewOrder = async function() {
