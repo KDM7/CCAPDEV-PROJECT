@@ -1,0 +1,13 @@
+[{
+    "commentID": 50001,
+    "userID": 10014,
+    "restID": 20001,
+    "comment": "This Place is great",
+    "rating": 4  
+  }, {
+    "commentID": 50002,
+    "userID": 10013,
+    "restID": 20001,
+    "comment": "Bad Customer Service",
+    "rating": 2
+  }]

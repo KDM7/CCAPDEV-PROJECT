@@ -1,0 +1,47 @@
+{{>c_header}}
+
+<div class="container">
+                <div class="col-12">
+                    <div class="shadow">
+						<div class="d-flex flex-column mt-2">
+                            <div class="container">
+                                {{#each rest}}
+								<h1 class="display-4 text-center">{{this.restName}}</h1>
+							</div>
+							<div class="container">
+								<form>
+                                    <div class="form-group">
+                                        <label for="comment_rating">Rating</label>
+                                        <select class="form-control" id="comment_rating">
+                                            <option value="0">Please Select A Rating</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+									<div class="form-group">
+                                        <label for="comment">Comment</label>
+                                        <textarea class="form-control" id="comment" rows="3"></textarea>
+                                    </div>
+                                    <div class="invisible">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="comment_restID" value="{{this.restID}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="comment_userID" value="{{this.userID}}" disabled>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+								</form>
+                                <button type="button" class="btn btn-primary btn-lg btn-block mt-3"
+                                    id="submitNewComment_customer">Submit</button>
+							</div>	
+						</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>

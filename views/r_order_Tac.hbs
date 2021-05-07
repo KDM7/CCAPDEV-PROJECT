@@ -1,0 +1,101 @@
+{{>r_header_Tac}}
+    <div class="container">
+
+            
+                <div class="col-12">
+                    <div class="shadow">
+                        <br>
+                        <h1 class="list-group-item list-group-item-action bg-primary text-white">Order Details</h1>
+                        <br>
+                            <h5 class ="text-center">Status: {{orders.status}}</h5>
+                        <br>
+                        <form>
+                            <div class="invisible">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm">
+                                            <label for="meal_ID">Order ID</label>
+                                            <input type="text" class="form-control" id="order_ID" value="{{orders.orderID}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm">
+                                            <label for="meal_ID">Total</label>
+                                            <input type="number" class="form-control" id="order_total" value="{{orders.total}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm">
+                                            <label for="meal_ID">Customer</label>
+                                            <input type="number" class="form-control" id="order_customer" value="{{orders.customer}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm">
+                                            <label for="meal_ID">Restaurant</label>
+                                            <input type="number" class="form-control" id="order_restID" value="{{orders.restID}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm">
+                                            <label for="meal_ID">Status</label>
+                                            <input type="text" class="form-control" id="orderStatusOld" value="{{orders.status}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="order_date">Date Damaged</label>
+                                                <!-- newMDgoods_prodID -->
+                                                <input type="date" class="form-control" id="order_date" readonly>
+                                                <script>
+                                                Date.prototype.toDateInputValue = (function () {
+                                                    var local = new Date("{{orders.date}}");
+                                                    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+                                                    return local.toJSON().slice(0, 10);
+                                                });
+                                                document.getElementById('order_date').value = new Date().toDateInputValue();
+                                            </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="order_Status">Status</label>
+                                <select class="form-control" id="order_Status">
+                                    <option value="0">Please Select A Status</option>
+                                    <option value="1">Preparing</option>
+                                    <option value="2">Cooking</option>
+                                    <option value="3">Complete</option>
+                                    <option value="4">Delivered</option>
+                                </select>
+                            </div>
+                        </form>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">Check ID</th>
+                                <th scope="col">Meal ID</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {{#each meals}}
+                                {{>c_order_row this}}
+                                {{/each}}
+                                <tr class="table-success">
+                                    <th scope="row">Total</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right">{{orders.total}}.00</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                          <button type="button" class="btn btn-primary btn-lg btn-block mt-3"
+                            id="submitEditStatus">Submit</button>
+                          <a href="/r/ChzIT" class="btn btn-primary btn-lg btn-block mt-3">Back</a>
+                    </div>
+                </div>
+
+
+        </div>

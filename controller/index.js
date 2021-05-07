@@ -7,6 +7,7 @@ const mealModel = require('../model/mealsdb');
 const employeeModel = require('../model/employeesdb');
 const orderModel = require('../model/ordersdb');
 const checkoutModel = require('../model/checkoutsdb');
+const commentModel = require('../model/commentsdb');
 
 const bcrypt = require('bcrypt');
 const e = require('express');
@@ -57,6 +58,14 @@ function Checkout(checkID, mealID, orderID, userID, restID,  qty, total) {
     this.total = total;
 }
 
+function Comment(commentID, userID, restID, comment, rating) {
+  this.commentID = commentID;
+  this.userID = userID;
+  this.restID = restID;
+  this.comment = comment;
+  this.rating = rating;
+}
+
 async function getMinMaxCheckoutID(sortby, offset){
   var highestID = await checkoutModel.aggregate([{
     '$sort': {
@@ -89,6 +98,23 @@ async function getMinMaxOrderID(sortby, offset){
   return highestID[0].orderID + offset;
 }
 
+async function getMinMaxCommentID(sortby, offset){
+  var highestID = await commentModel.aggregate([
+    {
+      '$sort': {
+        'commentID': sortby
+      }
+    }, {
+      '$limit': 1
+    }, {
+      '$project': {
+        'commentID': 1
+      }
+    }
+  ]);
+  return highestID[0].commentID + offset;
+}
+
 async function getRestID(mealID){
   var restMeal = await mealModel.aggregate([
       {
@@ -98,21 +124,6 @@ async function getRestID(mealID){
       }
     ]);
   return restMeal[0].restID;
-}
-
-async function getOrderDate(orderID) {
-  var orderDate = await orderModel.aggregate([
-    {
-      '$match': {
-        'orderID': orderID
-      }
-    }, {
-      '$project': {
-        'date': 1
-      }
-    }
-  ]);
-  return orderDate[0].date;
 }
 
 async function findUser(userID) {
@@ -176,6 +187,227 @@ const indexFunctions = {
         } catch (e) {
             console.log(e);
         }
+    },
+
+    getChzComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_ChzIT_comment', {
+          title: 'Cheeze IT Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    
+
+    getNewCommentChz: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getNewCommentSpc: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getNewCommentTac: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getNewCommentPot: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getNewCommentBen: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getNewCommentAlmu: async function (req, res) {
+      try{
+        var user = req.session.logUser.userID;
+        var match = await restaurantModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$addFields': {
+              'userID': user
+            }
+          }
+        ]);
+        
+        res.render('u_comment_1', {
+          title: 'New Comment',
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
     },
 
     getSpcMenu: async function (req, res) {
@@ -359,8 +591,8 @@ const indexFunctions = {
               }
             ]);
 
-            res.render('r_ChzIT', {
-                title: 'Cheeze IT Orders',
+            res.render('r_SpCity', {
+                title: 'Spicy City Orders',
                 orders: JSON.parse(JSON.stringify(result))
             });
       } catch(e) {
@@ -378,7 +610,247 @@ const indexFunctions = {
           orderID:orderID
         });
 
-        res.render('r_order_1', {
+        res.render('r_order_Spc', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRTacOrders: async function (req, res) {
+      try {
+          var result = await orderModel.aggregate([
+              {
+                '$match': {
+                  'restID': 20002
+                }
+              }, {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'customer', 
+                  'foreignField': 'userID', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user', 
+                  'preserveNullAndEmptyArrays': true
+                }
+              }, {
+                '$project': {
+                  'orderID': 1, 
+                  'status': 1, 
+                  'date': 1, 
+                  'total': 1, 
+                  'c_firstName': '$user.firstName', 
+                  'c_lastName': '$user.lastName'
+                }
+              }
+            ]);
+
+            res.render('r_TacTown', {
+                title: 'Spicy City Orders',
+                orders: JSON.parse(JSON.stringify(result))
+            });
+      } catch(e) {
+          console.log(e);
+      }
+    },
+
+    getOneRTacOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_Tac', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRPotOrders: async function (req, res) {
+      try {
+          var result = await orderModel.aggregate([
+              {
+                '$match': {
+                  'restID': 20004
+                }
+              }, {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'customer', 
+                  'foreignField': 'userID', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user', 
+                  'preserveNullAndEmptyArrays': true
+                }
+              }, {
+                '$project': {
+                  'orderID': 1, 
+                  'status': 1, 
+                  'date': 1, 
+                  'total': 1, 
+                  'c_firstName': '$user.firstName', 
+                  'c_lastName': '$user.lastName'
+                }
+              }
+            ]);
+
+            res.render('r_PotAc', {
+                title: 'Spicy City Orders',
+                orders: JSON.parse(JSON.stringify(result))
+            });
+      } catch(e) {
+          console.log(e);
+      }
+    },
+
+    getOneRPotOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_Pot', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRBenOrders: async function (req, res) {
+      try {
+          var result = await orderModel.aggregate([
+              {
+                '$match': {
+                  'restID': 20005
+                }
+              }, {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'customer', 
+                  'foreignField': 'userID', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user', 
+                  'preserveNullAndEmptyArrays': true
+                }
+              }, {
+                '$project': {
+                  'orderID': 1, 
+                  'status': 1, 
+                  'date': 1, 
+                  'total': 1, 
+                  'c_firstName': '$user.firstName', 
+                  'c_lastName': '$user.lastName'
+                }
+              }
+            ]);
+
+            res.render('r_BenG', {
+                title: 'Spicy City Orders',
+                orders: JSON.parse(JSON.stringify(result))
+            });
+      } catch(e) {
+          console.log(e);
+      }
+    },
+
+    getOneRBenOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_Ben', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRAlmuOrders: async function (req, res) {
+      try {
+          var result = await orderModel.aggregate([
+              {
+                '$match': {
+                  'restID': 20006
+                }
+              }, {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'customer', 
+                  'foreignField': 'userID', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user', 
+                  'preserveNullAndEmptyArrays': true
+                }
+              }, {
+                '$project': {
+                  'orderID': 1, 
+                  'status': 1, 
+                  'date': 1, 
+                  'total': 1, 
+                  'c_firstName': '$user.firstName', 
+                  'c_lastName': '$user.lastName'
+                }
+              }
+            ]);
+
+            res.render('r_Almu', {
+                title: 'Spicy City Orders',
+                orders: JSON.parse(JSON.stringify(result))
+            });
+      } catch(e) {
+          console.log(e);
+      }
+    },
+
+    getOneRAlmuOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_Almu', {
           title: 'Customer Orders',
           meals: JSON.parse(JSON.stringify(meal)),
           orders: JSON.parse(JSON.stringify(order))
@@ -1028,8 +1500,37 @@ const indexFunctions = {
             res.send({
               status: match.restID
             });
-          }
-          else {
+          } else if (match.restID == 20002){
+            req.session.logUser = match;
+            req.session.type = 'TacTown';
+            res.send({
+              status: match.restID
+            });
+          } else if (match.restID == 20003){
+            req.session.logUser = match;
+            req.session.type = 'SpCity';
+            res.send({
+              status: match.restID
+            });
+          } else if (match.restID == 20004){
+            req.session.logUser = match;
+            req.session.type = 'PotAc';
+            res.send({
+              status: match.restID
+            });
+          } else if (match.restID == 20005){
+            req.session.logUser = match;
+            req.session.type = 'BenG';
+            res.send({
+              status: match.restID
+            });
+          } else if (match.restID == 20006){
+            req.session.logUser = match;
+            req.session.type = 'AlCent';
+            res.send({
+              status: match.restID
+            });
+          } else {
             req.session.logUser = match;
             req.session.type = 'Customer';
             res.send({
@@ -1132,6 +1633,33 @@ const indexFunctions = {
         })
       }
       else {
+        res.send({
+          status: 501, msg:'User not logged in'
+        });
+      }
+    },
+
+    postNewCommentCustomer: async function (req, res) {
+      if(req.session.logUser) {
+        var {
+          restID,
+          userID,
+          comment,
+          rating
+        } = req.body
+        var commentID = await getMinMaxCommentID(-1, 1);
+
+        var comment = new Comment(commentID, userID, restID, comment, rating);
+        var newComment = new commentModel(comment);
+
+        newComment.recordNewComment();
+
+        res.send({
+          status: parseInt(restID),
+          msg: 'New Comment Posted'
+        })
+
+      } else {
         res.send({
           status: 501, msg:'User not logged in'
         });

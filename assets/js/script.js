@@ -277,5 +277,69 @@ $(document).ready(function() {
             })
         } 
     });
+
+    $('#submitNewComment_customer').click(function(){
+        var restID = $('#comment_restID').val();
+        var userID = $('#comment_userID').val();
+        var comment = $('#comment').val();
+        var rating = $('#comment_rating').val();
+        var valid = true;
+
+        if(validator.isEmpty(comment)){
+            valid = false;
+            alert('Please input a comment');
+        }
+
+        if(rating == 0){
+            valid = false;
+            alert('Please select a rating');
+        }
+
+        if(valid) {
+            $.post('/newComment_submit_customer', {
+                restID: restID,
+                userID: userID,
+                comment: comment,
+                rating: rating
+            }, function(result) {
+                switch(result.status) {
+                    case 20001: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/ChzIT';
+                        break;
+                    }
+                    case 20002: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/TacTown';
+                        break;
+                    }
+                    case 20003: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/SpCity';
+                        break;
+                    }
+                    case 20004: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/PotAc';
+                        break;
+                    }
+                    case 20005: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/BenG';
+                        break;
+                    }
+                    case 20006: {
+                        alert(result.msg);
+                        window.location.href = '/u/comm/AlCent';
+                        break;
+                    }
+                    case 501: {
+                        alert('case 501: ' + result.msg);
+                        break;
+                    }
+                }
+            })
+        }
+    })
     
 });
