@@ -39,11 +39,11 @@ router.get('/u/order/:orderID', controller.getOneCustomerOrder);
 
 //Commenting
 router.get('/u/comm/ChzIT', controller.getChzComments);
-// router.get('/u/comm/SpCity', controller.getSpcComments);
-// router.get('/u/comm/TacTown', controller.getTacComments);
-// router.get('/u/comm/PotAc', controller.getPotComments);
-// router.get('/u/comm/BenG', controller.getBenComments);
-// router.get('/u/comm/AlCent', controller.getAlmuComments);
+router.get('/u/comm/SpCity', controller.getSpcComments);
+router.get('/u/comm/TacTown', controller.getTacComments);
+router.get('/u/comm/PotAc', controller.getPotComments);
+router.get('/u/comm/BenG', controller.getBenComments);
+router.get('/u/comm/AlCent', controller.getAlmuComments);
 
 router.get('/u/comm/new/ChzIT', controller.getNewCommentChz);
 router.get('/u/comm/new/SpCity', controller.getNewCommentSpc);

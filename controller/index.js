@@ -264,6 +264,381 @@ const indexFunctions = {
       }
     },
 
+    getSpcComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_SpCity_comment', {
+          title: 'Spice City Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getTacComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_TacTown_comment', {
+          title: 'Taco Town Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getPotComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_PotAc_comment', {
+          title: 'Potato Academy Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    
+    getBenComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_BenG_comment', {
+          title: 'Bens Grill Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getAlmuComments: async function (req, res) {
+      try{
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]); 
+
+        res.render('u_AlCent_comment', {
+          title: 'Almusal Central Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
     
 
     getNewCommentChz: async function (req, res) {
