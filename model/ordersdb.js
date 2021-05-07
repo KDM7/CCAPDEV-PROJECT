@@ -23,6 +23,11 @@ orderSchema.methods.recordNewOrder = async function() {
     return result;
 };
 
+orderSchema.methods.recordEditOrder = async function() {
+    var result = orderModel.findOneAndUpdate({ orderID: this.orderID }, { status: this.status });
+    return result;
+};
+
 const orderModel = db.model('orders',orderSchema);
 
 module.exports = orderModel;

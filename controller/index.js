@@ -100,6 +100,21 @@ async function getRestID(mealID){
   return restMeal[0].restID;
 }
 
+async function getOrderDate(orderID) {
+  var orderDate = await orderModel.aggregate([
+    {
+      '$match': {
+        'orderID': orderID
+      }
+    }, {
+      '$project': {
+        'date': 1
+      }
+    }
+  ]);
+  return orderDate[0].date;
+}
+
 async function findUser(userID) {
   var user = await userModel.aggregate([
     {
@@ -253,13 +268,12 @@ const indexFunctions = {
         }
     },
 
-    getChzOrders: async function (req, res) {
+    getRChzOrders: async function (req, res) {
         try {
             var result = await orderModel.aggregate([
                 {
                   '$match': {
-                    'restID': 20001, 
-                    'finish': true
+                    'restID': 20001
                   }
                 }, {
                   '$lookup': {
@@ -292,6 +306,86 @@ const indexFunctions = {
         } catch(e) {
             console.log(e);
         }
+    },
+
+    getOneRChzOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_Chz', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRSpcOrders: async function (req, res) {
+      try {
+          var result = await orderModel.aggregate([
+              {
+                '$match': {
+                  'restID': 20003
+                }
+              }, {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'customer', 
+                  'foreignField': 'userID', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user', 
+                  'preserveNullAndEmptyArrays': true
+                }
+              }, {
+                '$project': {
+                  'orderID': 1, 
+                  'status': 1, 
+                  'date': 1, 
+                  'total': 1, 
+                  'c_firstName': '$user.firstName', 
+                  'c_lastName': '$user.lastName'
+                }
+              }
+            ]);
+
+            res.render('r_ChzIT', {
+                title: 'Cheeze IT Orders',
+                orders: JSON.parse(JSON.stringify(result))
+            });
+      } catch(e) {
+          console.log(e);
+      }
+    },
+
+    getOneRSpcOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('r_order_1', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
     },
 
     getOneChzMeal: async function (req, res) {
@@ -391,7 +485,7 @@ const indexFunctions = {
         var meals = await checkoutModel.aggregate([
           {
             '$match': {
-              'userID': 10014, 
+              'userID': user, 
               'restID': 20001, 
               'orderID': null
             }
@@ -439,7 +533,7 @@ const indexFunctions = {
         var restID = await checkoutModel.aggregate([
           {
             '$match': {
-              'userID': 10014, 
+              'userID': user, 
               'restID': 20001, 
               'orderID': null
             }
@@ -453,7 +547,7 @@ const indexFunctions = {
           }
         ]);
 
-        res.render('u_ChzIT_order', {
+        res.render('u_meal_cart', {
           title: 'Cheeze IT Cart',
           meal: JSON.parse(JSON.stringify(meals)),
           order: JSON.parse(JSON.stringify(total)),
@@ -464,9 +558,460 @@ const indexFunctions = {
       }
     },
 
+    getSpcCart: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var meals = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20003, 
+              'orderID': null
+            }
+          }, {
+            '$lookup': {
+              'from': 'meals', 
+              'localField': 'mealID', 
+              'foreignField': 'mealID', 
+              'as': 'meal'
+            }
+          }, {
+            '$unwind': {
+              'path': '$meal', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'checkID': 1, 
+              'mealID': 1, 
+              'orderID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'qty': 1, 
+              'total': 1, 
+              'mealName': '$meal.mealName'
+            }
+          }
+        ]);
+        var total = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20003, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$orderID', 
+              'total': {
+                '$sum': '$total'
+              }
+            }
+          }
+        ]);
+        var restID = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20003, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }
+        ]);
 
+        res.render('u_meal_cart', {
+          title: 'Spice City Cart',
+          meal: JSON.parse(JSON.stringify(meals)),
+          order: JSON.parse(JSON.stringify(total)),
+          restaurant: JSON.parse(JSON.stringify(restID))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
 
+    getTacCart: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var meals = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20002, 
+              'orderID': null
+            }
+          }, {
+            '$lookup': {
+              'from': 'meals', 
+              'localField': 'mealID', 
+              'foreignField': 'mealID', 
+              'as': 'meal'
+            }
+          }, {
+            '$unwind': {
+              'path': '$meal', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'checkID': 1, 
+              'mealID': 1, 
+              'orderID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'qty': 1, 
+              'total': 1, 
+              'mealName': '$meal.mealName'
+            }
+          }
+        ]);
+        var total = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20002, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$orderID', 
+              'total': {
+                '$sum': '$total'
+              }
+            }
+          }
+        ]);
+        var restID = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20002, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }
+        ]);
 
+        res.render('u_meal_cart', {
+          title: 'Cheeze IT Cart',
+          meal: JSON.parse(JSON.stringify(meals)),
+          order: JSON.parse(JSON.stringify(total)),
+          restaurant: JSON.parse(JSON.stringify(restID))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getPotCart: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var meals = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20004, 
+              'orderID': null
+            }
+          }, {
+            '$lookup': {
+              'from': 'meals', 
+              'localField': 'mealID', 
+              'foreignField': 'mealID', 
+              'as': 'meal'
+            }
+          }, {
+            '$unwind': {
+              'path': '$meal', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'checkID': 1, 
+              'mealID': 1, 
+              'orderID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'qty': 1, 
+              'total': 1, 
+              'mealName': '$meal.mealName'
+            }
+          }
+        ]);
+        var total = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20004, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$orderID', 
+              'total': {
+                '$sum': '$total'
+              }
+            }
+          }
+        ]);
+        var restID = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20004, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }
+        ]);
+
+        res.render('u_meal_cart', {
+          title: 'Cheeze IT Cart',
+          meal: JSON.parse(JSON.stringify(meals)),
+          order: JSON.parse(JSON.stringify(total)),
+          restaurant: JSON.parse(JSON.stringify(restID))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getBenCart: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var meals = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20005, 
+              'orderID': null
+            }
+          }, {
+            '$lookup': {
+              'from': 'meals', 
+              'localField': 'mealID', 
+              'foreignField': 'mealID', 
+              'as': 'meal'
+            }
+          }, {
+            '$unwind': {
+              'path': '$meal', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'checkID': 1, 
+              'mealID': 1, 
+              'orderID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'qty': 1, 
+              'total': 1, 
+              'mealName': '$meal.mealName'
+            }
+          }
+        ]);
+        var total = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20005, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$orderID', 
+              'total': {
+                '$sum': '$total'
+              }
+            }
+          }
+        ]);
+        var restID = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20005, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }
+        ]);
+
+        res.render('u_meal_cart', {
+          title: 'Cheeze IT Cart',
+          meal: JSON.parse(JSON.stringify(meals)),
+          order: JSON.parse(JSON.stringify(total)),
+          restaurant: JSON.parse(JSON.stringify(restID))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getAlmuCart: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var meals = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20006, 
+              'orderID': null
+            }
+          }, {
+            '$lookup': {
+              'from': 'meals', 
+              'localField': 'mealID', 
+              'foreignField': 'mealID', 
+              'as': 'meal'
+            }
+          }, {
+            '$unwind': {
+              'path': '$meal', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'checkID': 1, 
+              'mealID': 1, 
+              'orderID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'qty': 1, 
+              'total': 1, 
+              'mealName': '$meal.mealName'
+            }
+          }
+        ]);
+        var total = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20006, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$orderID', 
+              'total': {
+                '$sum': '$total'
+              }
+            }
+          }
+        ]);
+        var restID = await checkoutModel.aggregate([
+          {
+            '$match': {
+              'userID': user, 
+              'restID': 20006, 
+              'orderID': null
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }
+        ]);
+
+        res.render('u_meal_cart', {
+          title: 'Cheeze IT Cart',
+          meal: JSON.parse(JSON.stringify(meals)),
+          order: JSON.parse(JSON.stringify(total)),
+          restaurant: JSON.parse(JSON.stringify(restID))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getCustomerOrders: async function (req, res) {
+      try {
+        var user = req.session.logUser.userID;
+        var orders = await orderModel.aggregate([
+          {
+            '$match': {
+              'customer': user
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'orderID': 1, 
+              'status': 1, 
+              'date': 1, 
+              'total': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('u_orderlist', {
+          title: 'Customer Orders',
+          order: JSON.parse(JSON.stringify(orders))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getOneCustomerOrder: async function (req, res) {
+      try {
+        var orderID = req.params.orderID;
+        var meal = await checkoutModel.find({
+          orderID:orderID
+        });
+        var order = await orderModel.findOne({
+          orderID:orderID
+        });
+
+        res.render('u_order_1', {
+          title: 'Customer Orders',
+          meals: JSON.parse(JSON.stringify(meal)),
+          orders: JSON.parse(JSON.stringify(order))
+        });
+      } catch(e) {
+        console.log(e);
+      }
+    },
 
 
     postLogin: async function (req, res) {
@@ -557,6 +1102,34 @@ const indexFunctions = {
           status: parseInt(restID),
           msg: 'New order recorded'
         });
+      }
+      else {
+        res.send({
+          status: 501, msg:'User not logged in'
+        });
+      }
+    },
+
+    postEditStatus: async function (req, res) {
+      if(req.session.logUser) {
+        var {
+          orderID,
+          total,
+          customer,
+          restID,
+          date,
+          status
+        } = req.body;
+
+        var order = new Order(orderID, status, date, customer, restID, total);
+        var editOrder = new orderModel(order);
+
+        var result = await editOrder.recordEditOrder();
+
+        res.send({
+          status: parseInt(restID),
+          msg: 'Order Status Updated'
+        })
       }
       else {
         res.send({

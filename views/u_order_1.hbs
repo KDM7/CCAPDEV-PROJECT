@@ -1,0 +1,39 @@
+{{>c_header}}
+    <div class="container">
+
+            
+                <div class="col-12">
+                    <div class="shadow">
+                        <br>
+                        <h1 class="list-group-item list-group-item-action bg-primary text-white">Order Details</h1>
+                        <br>
+                            <h5 class ="text-center">Status: {{orders.status}}</h5>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">Check ID</th>
+                                <th scope="col">Meal ID</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {{#each meals}}
+                                {{>c_order_row this}}
+                                {{/each}}
+                                <tr class="table-success">
+                                    <th scope="row">Total</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right">{{orders.total}}.00</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                          <a href="/u/order" class="btn btn-primary btn-lg btn-block mt-3">Back</a>
+                    </div>
+                </div>
+
+
+        </div>

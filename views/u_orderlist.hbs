@@ -1,4 +1,4 @@
-{{>r_header_Chz}}
+{{>c_header}}
 <div class="container">
                 <div class="col-12">
                     <div class="shadow">
@@ -10,15 +10,15 @@
                               <tr>
                                 <th scope="col">Status</th>
                                 <th scope="col">OrderID</th>
-                                <th scope="col">Customer</th>
+                                <th scope="col">Restaurant</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Price</th>
                                 <th scope="col"></th>
                               </tr>
                             </thead>
                             <tbody>
-                              {{#each orders}}
-                              {{>r_order_row_Chz this}}
+                              {{#each order}}
+                              {{>u_orderlist_row this}}
                               {{/each}}
                             </tbody>
                           </table>

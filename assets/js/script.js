@@ -160,27 +160,27 @@ $(document).ready(function() {
                     }
                     case 20002: {
                         alert(result.msg);
-                        window.location.href = '/u/ChzIT';
+                        window.location.href = '/u/TacTown';
                         break;
                     }
                     case 20003: {
                         alert(result.msg);
-                        window.location.href = '/u/ChzIT';
+                        window.location.href = '/u/SpCity';
                         break;
                     }
                     case 20004: {
                         alert(result.msg);
-                        window.location.href = '/u/ChzIT';
+                        window.location.href = '/u/PotAc';
                         break;
                     }
                     case 20005: {
                         alert(result.msg);
-                        window.location.href = '/u/ChzIT';
+                        window.location.href = '/u/BenG';
                         break;
                     }
                     case 20006: {
                         alert(result.msg);
-                        window.location.href = '/u/ChzIT';
+                        window.location.href = '/u/AlCent';
                         break;
                     }
                     case 501: {
@@ -190,6 +190,92 @@ $(document).ready(function() {
                 }
             })
         }
+    });
+
+    $('#submitEditStatus').click(function(){
+        var orderID = $('#order_ID').val();
+        var total = $('#order_total').val();
+        var customer = $('#order_customer').val();
+        var restID = $('#order_restID').val();
+        var date = $('#order_date').val();
+        var oldStatus = $('#orderStatusOld').val();
+        var status = $('#order_Status').val();
+        var temp = "Delivered";
+        var valid = true;
+
+        if(status == 0) {
+            valid = false;
+            alert('Please Select A Valid Status');
+        }
+
+        if(status == 1) {
+            status = "Preparing";
+        }
+
+        if(status == 2) {
+            status = "Cooking";
+        }
+
+        if(status == 3) {
+            status = "Complete";
+        }
+
+        if(status == 4) {
+            status = "Delivered";
+        }
+
+        if(oldStatus == temp) {
+            valid = false;
+            alert('Customer already received order, cannot update anymore');
+        }
+        
+        if(valid) {
+            $.post('/editStatus_submit', {
+                orderID: orderID,
+                total: total,
+                customer: customer,
+                restID: restID,
+                date: date,
+                status: status
+            }, function(result){
+                switch(result.status) {
+                    case 20001: {
+                        alert(result.msg);
+                        window.location.href = '/r/ChzIT';
+                        break;
+                    }
+                    case 20002: {
+                        alert(result.msg);
+                        window.location.href = '/r/TacTown';
+                        break;
+                    }
+                    case 20003: {
+                        alert(result.msg);
+                        window.location.href = '/r/SpCity';
+                        break;
+                    }
+                    case 20004: {
+                        alert(result.msg);
+                        window.location.href = '/r/PotAc';
+                        break;
+                    }
+                    case 20005: {
+                        alert(result.msg);
+                        window.location.href = '/r/BenG';
+                        break;
+                    }
+                    case 20006: {
+                        alert(result.msg);
+                        window.location.href = '/r/AlCent';
+                        break;
+                    }
+                    case 501: {
+                        alert('case 501: ' + result.msg);
+                        break;
+                    }
+                }
+            })
+        } 
     });
     
 });
