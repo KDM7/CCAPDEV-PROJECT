@@ -1,0 +1,28 @@
+{{>r_header_Ben}}
+
+<div class="container">
+            <br>
+            {{#each rest}}
+                <h5 class="display-4 text-center">{{this.restName}}</h5>
+            {{/each}}
+            <br>
+            <div class="col-13">
+                <div class="shadow">
+                    <h5 class="list-group-item list-group-item-action bg-primary text-white">Comments</h5>
+                    <div style="min-height: 200px;">
+                        <div class="pl-3 pr-3">
+                            <table class="table table-striped">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    {{#each comments}}
+                                    {{>comment_row this}}
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>

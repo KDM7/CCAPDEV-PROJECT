@@ -34,9 +34,10 @@ function Meal(mealID, mealName, mealDesc, mealPrice, restID) {
     this.restID = restID;
 }
 
-function Employee(userID, restID) {
+function Employee(userID, restID, shifts) {
     this.userID = userID;
     this.restID = restID;
+    this.shifts = shifts;
 }
 
 function Order(orderID, status, date, customer, restID, total) {
@@ -64,6 +65,21 @@ function Comment(commentID, userID, restID, comment, rating) {
   this.restID = restID;
   this.comment = comment;
   this.rating = rating;
+}
+
+async function getMinMaxUserID(sortby, offset){
+  var highestID = await userModel.aggregate([{
+    '$sort': {
+        'userID': sortby
+          }
+      }, {
+          '$limit': 1
+      }, {
+          '$project': {
+              'userID': 1
+          }
+      }]);
+  return highestID[0].userID + offset;
 }
 
 async function getMinMaxCheckoutID(sortby, offset){
@@ -1206,7 +1222,7 @@ const indexFunctions = {
               }
             ]);
 
-            res.render('r_Almu', {
+            res.render('r_AlCent', {
                 title: 'Spicy City Orders',
                 orders: JSON.parse(JSON.stringify(result))
             });
@@ -1230,6 +1246,684 @@ const indexFunctions = {
           meals: JSON.parse(JSON.stringify(meal)),
           orders: JSON.parse(JSON.stringify(order))
         });
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRChzEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_ChzIT_emp', {
+          title: 'Cheeze IT Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRSpcEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_SpCity_emp', {
+          title: 'Spice City Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRTacEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_TacTown_emp', {
+          title: 'Taco Town Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRPotEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_PotAc_emp', {
+          title: 'Potato Academy Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRBenEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_BenG_emp', {
+          title: 'Bens Grill Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRAlmuEmployees: async function (req, res) {
+      try {
+        var result = await employeeModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'userID': 1, 
+              'shifts': 1, 
+              'e_firstName': '$user.firstName', 
+              'e_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        res.render('r_AlCent_emp', {
+          title: 'Almusal Central Employees',
+          users: JSON.parse(JSON.stringify(result))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRChzComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20001
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_ChzIT_comment', {
+          title: 'Cheeze IT Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRSpcComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20003
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_SpCity_comment', {
+          title: 'Spice City Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRTacComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20002
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_TacTown_comment', {
+          title: 'Taco Town Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRPotComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20004
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_PotAc_comment', {
+          title: 'Potato Academy Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRBenComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20005
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_BenG_comment', {
+          title: 'Bens Grill Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
+      } catch(e) {
+        console.log(e);
+      }
+    },
+
+    getRAlmuComments: async function (req, res) {
+      try {
+        var matches = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userID', 
+              'foreignField': 'userID', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              'commentID': 1, 
+              'userID': 1, 
+              'restID': 1, 
+              'comment': 1, 
+              'rating': 1, 
+              'u_firstName': '$user.firstName', 
+              'u_lastName': '$user.lastName'
+            }
+          }
+        ]);
+
+        var match = await commentModel.aggregate([
+          {
+            '$match': {
+              'restID': 20006
+            }
+          }, {
+            '$group': {
+              '_id': '$restID', 
+              'restID': {
+                '$first': '$restID'
+              }
+            }
+          }, {
+            '$lookup': {
+              'from': 'restaurants', 
+              'localField': 'restID', 
+              'foreignField': 'restID', 
+              'as': 'restaurant'
+            }
+          }, {
+            '$unwind': {
+              'path': '$restaurant', 
+              'preserveNullAndEmptyArrays': true
+            }
+          }, {
+            '$project': {
+              '__id': 1, 
+              'restID': 1, 
+              'restName': '$restaurant.restName'
+            }
+          }
+        ]);
+
+        res.render('r_AlCent_comment', {
+          title: 'Almusal Central Comments',
+          comments: JSON.parse(JSON.stringify(matches)),
+          rest: JSON.parse(JSON.stringify(match))
+        })
       } catch(e) {
         console.log(e);
       }
@@ -1869,52 +2563,56 @@ const indexFunctions = {
       try {
         var match = await findUser(parseInt(user));
         if (match) {
-          if(match.restID == 20001){
-            req.session.logUser = match;
-            req.session.type = 'ChzIT';
-            res.send({
-              status: match.restID
-            });
-          } else if (match.restID == 20002){
-            req.session.logUser = match;
-            req.session.type = 'TacTown';
-            res.send({
-              status: match.restID
-            });
-          } else if (match.restID == 20003){
-            req.session.logUser = match;
-            req.session.type = 'SpCity';
-            res.send({
-              status: match.restID
-            });
-          } else if (match.restID == 20004){
-            req.session.logUser = match;
-            req.session.type = 'PotAc';
-            res.send({
-              status: match.restID
-            });
-          } else if (match.restID == 20005){
-            req.session.logUser = match;
-            req.session.type = 'BenG';
-            res.send({
-              status: match.restID
-            });
-          } else if (match.restID == 20006){
-            req.session.logUser = match;
-            req.session.type = 'AlCent';
-            res.send({
-              status: match.restID
-            });
+          if (match.password == pass) {
+            if(match.restID == 20001){
+              req.session.logUser = match;
+              req.session.type = 'ChzIT';
+              res.send({
+                status: match.restID
+              });
+            } else if (match.restID == 20002){
+              req.session.logUser = match;
+              req.session.type = 'TacTown';
+              res.send({
+                status: match.restID
+              });
+            } else if (match.restID == 20003){
+              req.session.logUser = match;
+              req.session.type = 'SpCity';
+              res.send({
+                status: match.restID
+              });
+            } else if (match.restID == 20004){
+              req.session.logUser = match;
+              req.session.type = 'PotAc';
+              res.send({
+                status: match.restID
+              });
+            } else if (match.restID == 20005){
+              req.session.logUser = match;
+              req.session.type = 'BenG';
+              res.send({
+                status: match.restID
+              });
+            } else if (match.restID == 20006){
+              req.session.logUser = match;
+              req.session.type = 'AlCent';
+              res.send({
+                status: match.restID
+              });
+            } else {
+              req.session.logUser = match;
+              req.session.type = 'Customer';
+              res.send({
+                status: 101
+              });
+            }
           } else {
-            req.session.logUser = match;
-            req.session.type = 'Customer';
-            res.send({
-              status: 101
-            });
+            res.send({status: 401, msg: 'Password Incorrect'});
           }
         }
         else {
-          res.send({status: 401, msg: 'Incorrect credentials'});
+          res.send({status: 401, msg: 'User Not Found'});
         }
       }catch(e){
         res.send({status: 500, msg: e});
@@ -2037,6 +2735,43 @@ const indexFunctions = {
       } else {
         res.send({
           status: 501, msg:'User not logged in'
+        });
+      }
+    },
+
+    getRegister: async function (req, res) {
+      res.render('register', {
+        title: 'Register'
+      });
+    },
+
+    postNewUser: async function (req, res) {
+      try {
+        var {
+          fName,
+          lName,
+          pword
+        } = req.body
+        var userID = await getMinMaxUserID(-1, 1);
+        console.log(userID);
+        console.log(fName);
+        console.log(lName);
+        console.log(pword);
+
+        var user = new User(userID, pword, lName, fName);
+        var newUser = new userModel(user);
+
+        newUser.recordNewUser();
+
+        res.send({
+          status: 101,
+          userID: parseInt(userID)
+        });
+
+      } catch(e) {
+        console.log(e);
+        res.send({
+          status: 501, msg:'error'
         });
       }
     }

@@ -73,6 +73,59 @@ $(document).ready(function() {
         }
     });
 
+    $('#submitRegister').click(function() {
+        var fName = $('#firstName').val();
+        var lName = $('#lastName').val();
+        var pword = $('#pword').val();
+        var cpword = $('#cpword').val();
+        var valid = true;
+
+        if(validator.isEmpty(fName)) {
+            valid = false;
+            alert('No First Name Provided');
+        }
+
+        if(validator.isEmpty(lName)) {
+            valid = false;
+            alert('No Last Name Provided');
+        }
+
+        if(validator.isEmpty(pword)) {
+            valid = false;
+            alert('No Password Provided');
+        }
+
+        if(validator.isEmpty(cpword)) {
+            valid = false;
+            alert('Passwords do not match');
+        }
+
+        if(pword != cpword) {
+            valid = false;
+            alert('Passwords do not match');
+        }
+
+        if(valid) {
+            $.post('/newUser_submit', {
+                fName: fName,
+                lName: lName,
+                pword: pword
+            }, function(result) {
+                switch(result.status) {
+                    case 101: {
+                        alert('New User Registered \nUserID: ' + result.userID);
+                        window.location.href = '/';
+                        break;
+                    }
+                    case 501: {
+                        alert('case 501: ' + result.msg);
+                        break
+                    }
+                }
+            })
+        }
+    })
+
     $('#submitNewCheckout').click(function() {
         var quantity = $('#meal_qty').val();
         var sellingPrice = $('#meal_Price').val();

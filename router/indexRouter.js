@@ -67,11 +67,28 @@ router.get('/r/BenG/:orderID', controller.getOneRBenOrder);
 router.get('/r/AlCent', controller.getRAlmuOrders);
 router.get('/r/AlCent/:orderID', controller.getOneRAlmuOrder);
 
+router.get('/r/emp/ChzIT', controller.getRChzEmployees);
+router.get('/r/emp/SpCity', controller.getRSpcEmployees);
+router.get('/r/emp/TacTown', controller.getRTacEmployees);
+router.get('/r/emp/PotAc', controller.getRPotEmployees);
+router.get('/r/emp/BenG', controller.getRBenEmployees);
+router.get('/r/emp/AlCent', controller.getRAlmuEmployees);
+
+router.get('/r/comm/ChzIT', controller.getRChzComments);
+router.get('/r/comm/SpCity', controller.getRSpcComments);
+router.get('/r/comm/TacTown', controller.getRTacComments);
+router.get('/r/comm/PotAc', controller.getRPotComments);
+router.get('/r/comm/BenG', controller.getRBenComments);
+router.get('/r/comm/AlCent', controller.getRAlmuComments);
+
 //Posts
 router.post('/', controller.postLogin);
 router.post('/newCheckout_submit', controller.postNewCheckout);
 router.post('/newOrder_submit', controller.postNewOrder);
 router.post('/editStatus_submit', controller.postEditStatus);
 router.post('/newComment_submit_customer', controller.postNewCommentCustomer);
+
+router.get('/register', controller.getRegister);
+router.post('/newUser_submit', controller.postNewUser);
 
 module.exports = router;

@@ -1,0 +1,26 @@
+{{>r_header_Chz}}
+<div class="container">
+                <div class="col-12">
+                    <div class="shadow">
+                        <br>
+                        <h1 class="list-group-item list-group-item-action bg-primary text-white">Employees</h1>
+                        <br>
+                        <table class="table table-bordered table-fixed">
+                            <thead>
+                              <tr>
+                                <th scope="col">UserID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Shifts</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {{#each users}}
+                              {{>r_employees_row this}}
+                              {{/each}}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+
+
+        </div>

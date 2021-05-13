@@ -10,7 +10,8 @@ var db = mongoose.connection;
 
 const employeeSchema = new mongoose.Schema({
     userID: {type : Number, required: true},
-    restID:{type : Number, required: true}
+    restID:{type : Number, required: true},
+    shifts:{type: String, required: true}
 }, {collection: "employees"});
 
 const employeeModel = db.model('employees', employeeSchema);

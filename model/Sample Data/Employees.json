@@ -1,37 +1,145 @@
 [{
     "userID": 10001,
-    "restID": 20001
+    "restID": 20001,
+    "shifts": "M, W, F"
 }, {
     "userID": 10002,
-    "restID": 20001
+    "restID": 20001,
+    "shifts": "Tu, Th"
 }, {
     "userID": 10003,
-    "restID": 20002
+    "restID": 20001,
+    "shifts": "M, W, F"
 }, {
     "userID": 10004,
-    "restID": 20002
+    "restID": 20001,
+    "shifts": "Tu, Th"
 }, {
     "userID": 10005,
-    "restID": 20003
+    "restID": 20001,
+    "shifts": "M, W, F"
 }, {
     "userID": 10006,
-    "restID": 20003
+    "restID": 20001,
+    "shifts": "Tu, Th"
 }, {
     "userID": 10007,
-    "restID": 20004
+    "restID": 20002,
+    "shifts": "M, W, F"
 }, {
     "userID": 10008,
-    "restID": 20004
+    "restID": 20002,
+    "shifts": "Tu, Th"
 }, {
     "userID": 10009,
-    "restID": 20005
+    "restID": 20002,
+    "shifts": "M, W, F"
 }, {
     "userID": 10010,
-    "restID": 20005
+    "restID": 20002,
+    "shifts": "Tu, Th"
 }, {
     "userID": 10011,
-    "restID": 20006
+    "restID": 20002,
+    "shifts": "M, W, F"
 }, {
     "userID": 10012,
-    "restID": 20006
+    "restID": 20002,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10013,
+    "restID": 20003,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10014,
+    "restID": 20003,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10015,
+    "restID": 20003,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10016,
+    "restID": 20003,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10017,
+    "restID": 20003,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10018,
+    "restID": 20003,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10019,
+    "restID": 20004,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10020,
+    "restID": 20004,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10021,
+    "restID": 20004,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10022,
+    "restID": 20004,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10023,
+    "restID": 20004,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10024,
+    "restID": 20004,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10025,
+    "restID": 20005,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10026,
+    "restID": 20005,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10027,
+    "restID": 20005,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10028,
+    "restID": 20005,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10029,
+    "restID": 20005,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10030,
+    "restID": 20005,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10031,
+    "restID": 20006,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10032,
+    "restID": 20006,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10033,
+    "restID": 20006,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10034,
+    "restID": 20006,
+    "shifts": "Tu, Th"
+}, {
+    "userID": 10035,
+    "restID": 20006,
+    "shifts": "M, W, F"
+}, {
+    "userID": 10036,
+    "restID": 20006,
+    "shifts": "Tu, Th"
 }]
