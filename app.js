@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
 app.use(session({
-    'secret': 'ITISDEV',
+    'secret': 'CCAPDEV',
     'name': "cookie",
     'resave': true,
     'saveUninitialized': true
